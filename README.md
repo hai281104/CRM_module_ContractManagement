@@ -1,77 +1,99 @@
-📜 Hệ Thống Quản Lý Hợp Đồng (CRM Module)
-Dự án là một phân hệ chuyên sâu trong hệ thống CRM, tập trung vào việc quản lý vòng đời hợp đồng từ giai đoạn báo giá đến khi xuất bản và lưu trữ. Hệ thống hỗ trợ tự động hóa quy trình nghiệp vụ, giúp tối ưu hóa hiệu suất cho đội ngũ Sales và quản lý.
+#  Phân Hệ Quản Lý Hợp Đồng (Contract Management CRM)
 
-✨ Tính Năng Chính
-1. Quản Lý Danh Sách & Bộ Lọc
-Hiển thị danh sách hợp đồng với phân trang mượt mà.
+Dự án là một module cốt lõi thuộc hệ thống Quản trị Quan hệ Khách hàng (CRM), được phát triển trên nền tảng Java Servlet & JSP. Module này tự động hóa quy trình chuyển đổi từ Báo giá sang Hợp đồng, đồng thời hỗ trợ thiết kế biểu mẫu động và xuất tệp PDF đạt chuẩn in ấn văn phòng.
 
-Bộ lọc đa năng: Tìm kiếm theo từ khóa (Mã HĐ, Tên KH), tình trạng hợp đồng.
+---
 
-Lọc dữ liệu theo khoảng thời gian linh hoạt (Ngày tạo, Ngày bắt đầu, Ngày kết thúc).
+##  Tính năng nổi bật
 
-Chức năng Hủy lọc nhanh chóng để quay lại trạng thái mặc định.
+* **Quản lý Danh sách & Tìm kiếm:**
+    * Hiển thị danh sách hợp đồng tích hợp phân trang động.
+    * Bộ lọc đa chiều: Tìm theo từ khóa (Mã HĐ, Tên KH), Tình trạng hợp đồng.
+    * Lọc theo mốc thời gian linh hoạt (Ngày tạo, Ngày bắt đầu, Ngày kết thúc) kết hợp nút **Hủy lọc** nhanh.
+* **Tự động hóa luồng nghiệp vụ (Workflow):**
+    * Chuyển đổi dữ liệu trực tiếp từ Báo giá được duyệt sang Hợp đồng (Convert from Quote).
+    * Kế thừa toàn bộ thông tin khách hàng, giá trị và tiền tệ để giảm rủi ro nhập liệu sai.
+* **Thao tác hàng loạt (Bulk Actions):**
+    * Hỗ trợ Xóa mềm (Soft Delete) nhiều hợp đồng cùng lúc.
+    * Chuyển giao người phụ trách (Assign Owner) hàng loạt cho nhân viên Sales khác.
+* **Biểu mẫu & Xuất PDF (Template & Export):**
+    * Tích hợp trình soạn thảo WYSIWYG (CKEditor 5) để admin tự do thiết kế HTML Template.
+    * Tự động điền dữ liệu (Placeholders) như `{{customer_name}}`, `{{contract_value}}` vào biểu mẫu.
+    * Xuất file PDF chuẩn XML bằng thư viện `OpenHTMLToPDF` và `Jsoup`, nhúng sẵn bộ Font Unicode (Times New Roman).
 
-2. Chuyển Đổi Nghiệp Vụ (Workflow Automation)
-Convert from Quote: Cho phép tạo hợp đồng tự động từ các Báo giá đã được phê duyệt.
+---
 
-Kế thừa dữ liệu khách hàng, giá trị và tiền tệ từ báo giá để giảm thiểu nhập liệu thủ công.
+##  Công nghệ sử dụng
 
-3. Thao Tác Hàng Loạt (Bulk Actions)
-Xóa hàng loạt (Soft Delete) các hợp đồng được chọn.
+* **Backend:** Java 17, Servlet API, JDBC
+* **Frontend:** JSP, JSTL, Bootstrap 5, CKEditor 5
+* **Database:** MySQL 8.0+
+* **Build Tool:** Maven
+* **Libraries:** `openhtmltopdf`, `jsoup`, `mysql-connector-j`
 
-Giao phụ trách (Assign Owner) hàng loạt cho nhân viên kinh doanh chỉ với vài click.
+---
+## Cấu trúc thư mục cốt lõi
+```text
+├── src/main/java/com/crm
+│   ├── controllers         # Xử lý Request/Response (ContractController, TemplateController)
+│   ├── models              # Tầng giao tiếp dữ liệu (ContractDAO, ContractDTO)
+│   └── utils               # Tiện ích dùng chung (DBConnection)
+├── src/main/webapp
+│   ├── views               # Giao diện JSP (contract_list.jsp, contract_edit.jsp)
+│   └── fonts               # Chứa tệp TTF nhúng cho PDF
+└── pom.xml                 # Cấu hình Dependency Maven
+```
+## Cấu trúc cơ sở dữ liệu
+### Table: Contracts
+<img width="1324" height="518" alt="image" src="https://github.com/user-attachments/assets/d7f19e1d-df1a-4938-a1b4-ff883e43a10e" />
 
-4. Biểu Mẫu & Xuất Tệp (Template & Export)
-Quản lý Template: Thiết kế mẫu hợp đồng động bằng trình soạn thảo WYSIWYG (CKEditor 5).
+## Giao diện
+### Giao diện chính
+<img width="1850" height="678" alt="image" src="https://github.com/user-attachments/assets/0e358328-0f2c-4015-a4d6-0b4bea110463" />
 
-Placeholders: Sử dụng các biến {{customer_name}}, {{contract_value}}... để tự động điền dữ liệu.
+### Giao diện thiết kế mẫu hợp đồng
+<img width="1313" height="773" alt="image" src="https://github.com/user-attachments/assets/851bf028-5901-471b-a511-1d253c625fdf" />
 
-Xuất PDF chuyên nghiệp: Sử dụng thư viện OpenHTMLToPDF kết hợp Jsoup để xuất tệp PDF chuẩn XML, hỗ trợ đầy đủ phông chữ tiếng Việt (Times New Roman).
+## Giao diện chi tiết hợp đồng
+<img width="790" height="572" alt="image" src="https://github.com/user-attachments/assets/1a5a0411-3c9e-4d90-b12c-2fc26ac83666" />
 
-🛠 Công Nghệ Sử Dụng
-Backend: Java Servlet, JDBC.
 
-Frontend: JSP, JSTL, Bootstrap 5, Bootstrap Icons.
+##  Hướng dẫn cài đặt và khởi chạy
 
-Database: MySQL.
+### 1. Yêu cầu hệ thống
 
-Libraries: * OpenHTMLToPDF (Xuất PDF).
+* **JDK 17** (hoặc tương thích)
+* **Apache Tomcat 9.0+**
+* **Maven Toolkit**
+* **MySQL Workbench** hoặc Server
 
-Jsoup (Chuẩn hóa HTML/XML).
+### 2. Thiết lập Cơ sở dữ liệu
 
-CKEditor 5 (Trình soạn thảo mẫu).
+Tạo sẵn một Schema trong hệ quản trị MySQL (ví dụ: `db_crm`). Sau đó, bạn cần thiết lập thông tin kết nối trong lớp `DBConnection.java` của dự án:
 
-MySQL Connector/J (Kết nối Database).
+```java
+// Đường dẫn: src/main/java/com/crm/utils/DBConnection.java
+private static final String URL = "jdbc:mysql://localhost:3306/db_crm";
+private static final String USER = "root";
+private static final String PASSWORD = "mat_khau_cua_ban";
+```
+Lưu ý: Hãy đảm bảo bạn đã import cấu trúc các bảng contracts, quotes, document_templates vào cơ sở dữ liệu.
 
-🚀 Hướng Dẫn Cài Đặt
-1. Yêu cầu hệ thống
-Java JDK 17+.
+### 3. Cấu hình Phông chữ (Dành cho xuất PDF)
+Để tính năng xuất PDF hiển thị đúng tiếng Việt, bạn cần cấp phát các tệp Font chữ cho server bằng cách:
 
-Apache Tomcat 9.0+.
+Tạo thư mục fonts theo đường dẫn: src/main/webapp/fonts/
 
-Maven 3.6+.
+Copy 4 tệp phông chữ Times New Roman (TIMES.TTF, TIMESBD.TTF, TIMESI.TTF, TIMESBI.TTF) từ máy tính vào thư mục này.
 
-MySQL Server 8.0+.
+### 4. Biên dịch và Chạy ứng dụng
+Clone dự án về môi trường cục bộ.
 
-2. Cấu hình Database
-Tạo database mới có tên db_crm.
+Mở dự án thông qua IDE (Eclipse / IntelliJ IDEA).
 
-Import file db_crm.sql (nếu có) hoặc chạy các script tạo bảng contracts, quotes, document_templates.
+Cập nhật thư viện Maven: Chuột phải vào dự án -> Maven -> Update Project.
 
-3. Cấu hình Font chữ (Quan trọng cho PDF)
-Để tệp PDF hiển thị đúng tiếng Việt, bạn cần copy các tệp font Unicode vào dự án:
+Triển khai dự án lên Server Apache Tomcat.
 
-Vị trí: src/main/webapp/fonts/
-
-Các tệp cần thiết: TIMES.TTF, TIMESBD.TTF, TIMESI.TTF, TIMESBI.TTF.
-
-4. Chạy ứng dụng
-Clone dự án về máy.
-
-Mở dự án bằng Eclipse hoặc IntelliJ IDEA.
-
-Chuột phải vào dự án -> Maven -> Update Project.
-
-Add dự án vào Server Tomcat và nhấn Start.
-
-Truy cập: http://localhost:8080/ContractManagement/contracts
+Truy cập hệ thống qua đường dẫn:
+http://localhost:8080/ContractManagement/contracts
